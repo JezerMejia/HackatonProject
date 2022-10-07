@@ -1,15 +1,19 @@
 package com.jezerm.hackatonproject.ui.game
 
+
 import android.os.Bundle
 import android.view.*
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jezerm.hackatonproject.R
 import com.jezerm.hackatonproject.databinding.FragmentGameBinding
 import com.yuyakaido.android.cardstackview.*
+import java.util.*
+
 
 val situationsBank = ArrayList<GameSituation>()
 var currentSituation = 0
@@ -32,6 +36,7 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     private fun init() {
+        if (!situationsBank.isEmpty()) return
         situationsBank.add(
             GameSituation(
                 "Estás en el colegio y un hombre te queda viendo fijamente. ¿Qué haces?",
@@ -57,6 +62,7 @@ class GameFragment : Fragment(), CardStackListener {
             )
         )
     }
+
     private fun getItems(): ArrayList<GameSituation> {
 //        arrayList.add(situationsBank[currentSituation])
         return situationsBank
@@ -117,6 +123,17 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
+        if (this.manager.topPosition >= situationsBank.size) return
+
+        val situation = situationsBank[this.manager.topPosition - 1]
+
+        println("DIRECTION: ${direction}")
+        println("ASWER: ${situation.correctAnswer}")
+
+        if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) return
+        if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) return
+
+        Toast.makeText(this.context, "Incorrecto. Esa acción está mal.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCardRewound() {
