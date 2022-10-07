@@ -34,7 +34,18 @@ class MenuItem(val name: String, var situations: ArrayList<GameSituation> = Arra
                 MenuItem(
                     "Historia 2",
                     arrayListOf(
-
+                        GameSituation(
+                            "Un niño le levanta la falda a otra niña.",
+                            "Te ríes de ella",
+                            "Le avisas al profesor o profesora",
+                            CorrectSide.RIGHT
+                        ),
+                        GameSituation(
+                            "Un primo o prima te está tocando tus partes íntimas",
+                            "Avisas a tus padres",
+                            "Te dejas",
+                            CorrectSide.LEFT
+                        ),
                     )
                 )
             )
