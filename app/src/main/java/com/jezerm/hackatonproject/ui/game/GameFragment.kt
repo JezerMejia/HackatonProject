@@ -1,6 +1,8 @@
 package com.jezerm.hackatonproject.ui.game
 
 
+import android.animation.FloatEvaluator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.*
 import android.view.animation.LinearInterpolator
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jezerm.hackatonproject.R
 import com.jezerm.hackatonproject.databinding.FragmentGameBinding
 import com.yuyakaido.android.cardstackview.*
+import org.w3c.dom.Text
 import java.util.*
 
 
@@ -106,19 +109,64 @@ class GameFragment : Fragment(), CardStackListener {
         super.onDestroyView()
     }
 
-    override fun onCardDragging(direction: Direction?, ratio: Float) {
+    private var imgAnimator: ValueAnimator? = null
+    private var textAnimator: ValueAnimator? = null
+    private lateinit var imgAnimatorListener: FadeCardImgListener
+    private lateinit var textAnimatorListener: FadeCardTextListener
+
+    inner class FadeCardImgListener(val cardImg: ImageFilterView) :
+        ValueAnimator.AnimatorUpdateListener {
+        override fun onAnimationUpdate(p0: ValueAnimator) {
+            cardImg.brightness = p0.animatedValue as Float
+        }
+    }
+    inner class FadeCardTextListener(val cardText: TextView) :
+        ValueAnimator.AnimatorUpdateListener {
+        override fun onAnimationUpdate(p0: ValueAnimator) {
+            cardText.alpha = p0.animatedValue as Float
+        }
+    }
+
+    private fun fadeCardImgBrightness(darken: Boolean) {
         val card = this.manager.topView
         val cardImg = card.findViewById<ImageFilterView>(R.id.imgView)
+        val cardText = card.findViewById<TextView>(R.id.tvMessage)
+        this.imgAnimatorListener = FadeCardImgListener(cardImg)
+        this.textAnimatorListener = FadeCardTextListener(cardText)
+
+        this.imgAnimator?.cancel()
+        this.imgAnimator?.removeAllListeners()
+        this.textAnimator?.cancel()
+        this.textAnimator?.removeAllListeners()
+
+        if (darken) {
+            this.imgAnimator = ValueAnimator.ofObject(FloatEvaluator(), cardImg.brightness, 0.4f)
+            this.textAnimator = ValueAnimator.ofObject(FloatEvaluator(), cardText.alpha, 1.0f)
+        } else {
+            this.imgAnimator = ValueAnimator.ofObject(FloatEvaluator(), cardImg.brightness, 1.0f)
+            this.textAnimator = ValueAnimator.ofObject(FloatEvaluator(), cardText.alpha, 0.0f)
+        }
+        this.imgAnimator?.duration = 50
+        this.textAnimator?.duration = 50
+
+        this.imgAnimator?.addUpdateListener(this.imgAnimatorListener)
+        this.textAnimator?.addUpdateListener(this.textAnimatorListener)
+
+        this.imgAnimator?.start()
+        this.textAnimator?.start()
+    }
+
+    override fun onCardDragging(direction: Direction?, ratio: Float) {
+        val card = this.manager.topView
         val cardText = card.findViewById<TextView>(R.id.tvMessage)
         val situation = situationsBank[this.manager.topPosition]
 
         if (ratio > 0.1) {
-            cardImg.brightness = 0.4f
             cardText.text =
                 if (direction == Direction.Right) situation.rightMessage else situation.leftMessage
+            this.fadeCardImgBrightness(true)
         } else {
-            cardImg.brightness = 1.0f
-            cardText.setText("")
+            this.fadeCardImgBrightness(false)
         }
     }
 
@@ -140,11 +188,8 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardCanceled() {
-        val card = this.manager.topView
-        val cardImg = card.findViewById<ImageFilterView>(R.id.imgView)
-        val cardText = card.findViewById<TextView>(R.id.tvMessage)
-        cardImg.brightness = 1.0f
-        cardText.setText("")
+        this.fadeCardImgBrightness(false)
+//        cardText.setText("")
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
