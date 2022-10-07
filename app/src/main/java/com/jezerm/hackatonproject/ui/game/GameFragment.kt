@@ -29,6 +29,7 @@ class GameFragment : Fragment(), CardStackListener {
     private val manager by lazy { CardStackLayoutManager(this.context, this) }
     private val adapter by lazy { CardAdapter(getItems()) }
     private lateinit var situationList: ArrayList<GameSituation>
+    private var correctAnswers = 0
 
     companion object {
         const val SITUATION_LIST = "situation_list"
@@ -152,8 +153,17 @@ class GameFragment : Fragment(), CardStackListener {
 
         val situation = this.situationList[this.manager.topPosition - 1]
 
-        if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) return
-        if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) return
+        if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) {
+            this.correctAnswers++
+            this.binding.completedMessage.setText("Correctos: ${this.correctAnswers}/${this.situationList.size}")
+            return
+        }
+        if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) {
+            this.correctAnswers++
+            this.binding.completedMessage.setText("Correctos: ${this.correctAnswers}/${this.situationList.size}")
+            return
+        }
+        this.binding.completedMessage.setText("Correctos: ${this.correctAnswers}/${this.situationList.size}")
 
         val container = this.binding.containerGame
         val animator = ValueAnimator.ofObject(ArgbEvaluator(), resources.getColor(R.color.secondary), resources.getColor(R.color.red))

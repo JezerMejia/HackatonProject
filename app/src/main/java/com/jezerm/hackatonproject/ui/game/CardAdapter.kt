@@ -36,7 +36,6 @@ class CardAdapter(
     class ViewHolder(private val binding: ComponentCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun load(situation: GameSituation) {
             this.binding.tvMessage.setText("")
-            println("LOAD!!!1")
         }
     }
 }
