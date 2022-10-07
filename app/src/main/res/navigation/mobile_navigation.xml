@@ -9,17 +9,24 @@
         android:id="@+id/navigation_home"
         android:name="com.jezerm.hackatonproject.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_gameFragment"
+            app:destination="@id/navigation_game" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_info"
+            app:destination="@id/navigation_info" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.jezerm.hackatonproject.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_info"
+        android:name="com.jezerm.hackatonproject.ui.dashboard.InfoFragment"
+        android:label="@string/title_info"
+        tools:layout="@layout/fragment_info" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.jezerm.hackatonproject.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_game"
+        android:name="com.jezerm.hackatonproject.ui.game.GameFragment"
+        android:label="@string/title_game"
+        tools:layout="@layout/fragment_game" />
 </navigation>
