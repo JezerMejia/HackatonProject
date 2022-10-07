@@ -47,6 +47,6 @@
     <fragment
         android:id="@+id/howToFragment"
         android:name="com.jezerm.hackatonproject.HowToFragment"
-        android:label="Cómo Juagar"
+        android:label="Cómo Jugar"
         tools:layout="@layout/fragment_how_to" />
 </navigation>
