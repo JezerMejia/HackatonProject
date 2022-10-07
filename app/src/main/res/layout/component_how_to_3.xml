@@ -7,9 +7,8 @@
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/como_jugar_1"
+        app:srcCompat="@drawable/como_jugar_3"
         android:scaleType="centerInside"
-        app:round="12dp"
-        />
+        app:round="12dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
