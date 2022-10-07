@@ -3,6 +3,7 @@ package com.jezerm.hackatonproject.ui.game
 
 import android.animation.FloatEvaluator
 import android.animation.ValueAnimator
+import android.graphics.Color.red
 import android.os.Bundle
 import android.view.*
 import android.view.animation.LinearInterpolator
@@ -153,6 +154,7 @@ class GameFragment : Fragment(), CardStackListener {
         if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) return
         if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) return
 
+        this.binding.containerGame.setBackgroundColor(resources.getColor(R.color.black))
         Toast.makeText(this.context, "Incorrecto. Esa acción está mal.", Toast.LENGTH_SHORT).show()
     }
 
