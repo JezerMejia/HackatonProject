@@ -11,11 +11,11 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_gameFragment"
-            app:destination="@id/navigation_game" />
-        <action
             android:id="@+id/action_navigation_home_to_navigation_info"
             app:destination="@id/navigation_info" />
+        <action
+            android:id="@+id/action_navigation_home_to_gameMenuFragment"
+            app:destination="@id/navigation_game_menu" />
     </fragment>
 
     <fragment
@@ -28,5 +28,17 @@
         android:id="@+id/navigation_game"
         android:name="com.jezerm.hackatonproject.ui.game.GameFragment"
         android:label="@string/title_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <argument android:name="situation_list"
+            app:argType="com.jezerm.hackatonproject.ui.game.GameSituation[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_game_menu"
+        android:name="com.jezerm.hackatonproject.ui.game.GameMenuFragment"
+        android:label="@string/title_game"
+        tools:layout="@layout/fragment_game_menu" >
+        <action
+            android:id="@+id/action_navigation_game_menu_to_navigation_game"
+            app:destination="@id/navigation_game" />
+    </fragment>
 </navigation>

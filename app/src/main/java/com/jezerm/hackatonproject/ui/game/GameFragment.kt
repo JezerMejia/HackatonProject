@@ -14,12 +14,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.jezerm.hackatonproject.R
 import com.jezerm.hackatonproject.databinding.FragmentGameBinding
 import com.yuyakaido.android.cardstackview.*
-import org.w3c.dom.Text
 import java.util.*
-
-
-val situationsBank = ArrayList<GameSituation>()
-var currentSituation = 0
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -30,45 +26,23 @@ class GameFragment : Fragment(), CardStackListener {
     private lateinit var binding: FragmentGameBinding
     private val manager by lazy { CardStackLayoutManager(this.context, this) }
     private val adapter by lazy { CardAdapter(getItems()) }
+    private lateinit var situationList: ArrayList<GameSituation>
+
+    companion object {
+        const val SITUATION_LIST = "situation_list"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            val array = it.getParcelableArray(SITUATION_LIST) as Array<GameSituation>
+            this.situationList = array.toCollection(ArrayList())
         }
-        this.init()
-    }
-
-    private fun init() {
-        if (!situationsBank.isEmpty()) return
-        situationsBank.add(
-            GameSituation(
-                "Estás en el colegio y un hombre te queda viendo fijamente. ¿Qué haces?",
-                "Preguntarle qué está haciendo",
-                "Correr hacia un profesor o profesora y decirle",
-                CorrectSide.RIGHT
-            )
-        )
-        situationsBank.add(
-            GameSituation(
-                "Ves que una persona adulta besa o toca a una niña de forma morbosa. ¿Los ignoras?",
-                "No",
-                "Sí",
-                CorrectSide.LEFT
-            )
-        )
-        situationsBank.add(
-            GameSituation(
-                "Acabas de salir del colegio. Alguien desconocido te ofrece dinero a cambio de acompañarlo a su hogar.",
-                "Aceptas",
-                "Le dices que no debes hablar con desconocidos",
-                CorrectSide.RIGHT
-            )
-        )
     }
 
     private fun getItems(): ArrayList<GameSituation> {
 //        arrayList.add(situationsBank[currentSituation])
-        return situationsBank
+        return this.situationList
     }
 
     override fun onCreateView(
@@ -120,6 +94,7 @@ class GameFragment : Fragment(), CardStackListener {
             cardImg.brightness = p0.animatedValue as Float
         }
     }
+
     inner class FadeCardTextListener(val cardText: TextView) :
         ValueAnimator.AnimatorUpdateListener {
         override fun onAnimationUpdate(p0: ValueAnimator) {
@@ -159,7 +134,7 @@ class GameFragment : Fragment(), CardStackListener {
     override fun onCardDragging(direction: Direction?, ratio: Float) {
         val card = this.manager.topView
         val cardText = card.findViewById<TextView>(R.id.tvMessage)
-        val situation = situationsBank[this.manager.topPosition]
+        val situation = this.situationList[this.manager.topPosition]
 
         if (ratio > 0.1) {
             cardText.text =
@@ -171,12 +146,9 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
-        if (this.manager.topPosition >= situationsBank.size) return
+        if (this.manager.topPosition >= this.situationList.size) return
 
-        val situation = situationsBank[this.manager.topPosition - 1]
-
-        println("DIRECTION: ${direction}")
-        println("ASWER: ${situation.correctAnswer}")
+        val situation = this.situationList[this.manager.topPosition - 1]
 
         if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) return
         if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) return
@@ -189,23 +161,14 @@ class GameFragment : Fragment(), CardStackListener {
 
     override fun onCardCanceled() {
         this.fadeCardImgBrightness(false)
-//        cardText.setText("")
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-        val situation = situationsBank[position]
+        val situation = this.situationList[position]
         this.binding.tvTitle.text = situation.situation
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
-        println("Bank: ${situationsBank}")
-//        situationsBank.removeFirst()
-//        this.binding.cardStack.adapter?.notifyItemRemoved(0)
-//        if (currentSituation >= situationsBank.size) {
-//            currentSituation = 0
-//        } else
-//            currentSituation++
-//        this.arrayList.add(situationsBank[currentSituation])
-//        this.binding.cardStack.adapter?.notifyItemRangeInserted(0, 1)
+        println("Bank: ${this.situationList}")
     }
 }

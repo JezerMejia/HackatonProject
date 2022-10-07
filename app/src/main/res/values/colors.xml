@@ -16,4 +16,6 @@
     <color name="primary_1">#219ed7</color>
     <color name="secondary">#1B7979</color>
     <color name="secondary_1">#92CB87</color>
+    <color name="tertiary">#3A1E40</color>
+    <color name="tertiary_1">#4B677A</color>
 </resources>
