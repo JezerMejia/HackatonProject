@@ -1,6 +1,7 @@
 package com.jezerm.hackatonproject.ui.game
 
 
+import android.animation.ArgbEvaluator
 import android.animation.FloatEvaluator
 import android.animation.ValueAnimator
 import android.graphics.Color.red
@@ -154,7 +155,23 @@ class GameFragment : Fragment(), CardStackListener {
         if (direction == Direction.Left && situation.correctAnswer == CorrectSide.LEFT) return
         if (direction == Direction.Right && situation.correctAnswer == CorrectSide.RIGHT) return
 
-        this.binding.containerGame.setBackgroundColor(resources.getColor(R.color.black))
+        val container = this.binding.containerGame
+        val animator = ValueAnimator.ofObject(ArgbEvaluator(), resources.getColor(R.color.secondary), resources.getColor(R.color.red))
+        animator.duration = 250
+        animator.addUpdateListener {
+            container.setBackgroundColor(it.animatedValue as Int)
+        }
+        animator.start()
+
+        val animator2 = ValueAnimator.ofObject(ArgbEvaluator(), resources.getColor(R.color.red), resources.getColor(R.color.secondary))
+        animator2.startDelay = 1000
+        animator2.duration = 250
+        animator2.addUpdateListener {
+            container.setBackgroundColor(it.animatedValue as Int)
+        }
+        animator2.start()
+
+//        this.binding.containerGame.setBackgroundColor(resources.getColor(R.color.black))
         Toast.makeText(this.context, "Incorrecto. Esa acción está mal.", Toast.LENGTH_SHORT).show()
     }
 
