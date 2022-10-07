@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary"
+    android:background="?attr/colorSecondary"
     tools:context=".ui.game.GameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +36,7 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginBottom="76dp"
             android:translationZ="0dp"
-            app:cardBackgroundColor="@color/secondary_1"
+            app:cardBackgroundColor="?attr/colorSecondaryVariant"
             app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

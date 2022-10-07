@@ -11,6 +11,9 @@ import com.jezerm.hackatonproject.R
 import com.jezerm.hackatonproject.databinding.FragmentGameBinding
 import com.yuyakaido.android.cardstackview.*
 
+val situationsBank = ArrayList<GameSituation>()
+var currentSituation = 0
+
 /**
  * A simple [Fragment] subclass.
  * Use the [GameFragment.newInstance] factory method to
@@ -19,24 +22,44 @@ import com.yuyakaido.android.cardstackview.*
 class GameFragment : Fragment(), CardStackListener {
     private lateinit var binding: FragmentGameBinding
     private val manager by lazy { CardStackLayoutManager(this.context, this) }
-    private val adapter by lazy { CardAdapter(init()) }
-    private val arrayList = ArrayList<GameSituation>()
+    private val adapter by lazy { CardAdapter(getItems()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
         }
+        this.init()
     }
 
-    private fun init(): List<GameSituation> {
-        val situation = GameSituation(
-            "Estás en el colegio y un hombre te queda viendo fijamente. ¿Qué haces?",
-            "Preguntarle qué está haciendo",
-            "Correr hacia un profesor o profesora y decirle",
-            CorrectSide.RIGHT
+    private fun init() {
+        situationsBank.add(
+            GameSituation(
+                "Estás en el colegio y un hombre te queda viendo fijamente. ¿Qué haces?",
+                "Preguntarle qué está haciendo",
+                "Correr hacia un profesor o profesora y decirle",
+                CorrectSide.RIGHT
+            )
         )
-        arrayList.add(situation)
-        return arrayList
+        situationsBank.add(
+            GameSituation(
+                "Ves que una persona adulta besa o toca a una niña de forma morbosa. ¿Los ignoras?",
+                "No",
+                "Sí",
+                CorrectSide.LEFT
+            )
+        )
+        situationsBank.add(
+            GameSituation(
+                "Acabas de salir del colegio. Alguien desconocido te ofrece dinero a cambio de acompañarlo a su hogar.",
+                "Aceptas",
+                "Le dices que no debes hablar con desconocidos",
+                CorrectSide.RIGHT
+            )
+        )
+    }
+    private fun getItems(): ArrayList<GameSituation> {
+//        arrayList.add(situationsBank[currentSituation])
+        return situationsBank
     }
 
     override fun onCreateView(
@@ -81,7 +104,7 @@ class GameFragment : Fragment(), CardStackListener {
         val card = this.manager.topView
         val cardImg = card.findViewById<ImageFilterView>(R.id.imgView)
         val cardText = card.findViewById<TextView>(R.id.tvMessage)
-        val situation = arrayList[this.manager.topPosition]
+        val situation = situationsBank[this.manager.topPosition]
 
         if (ratio > 0.1) {
             cardImg.brightness = 0.4f
@@ -108,10 +131,19 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-        val situation = arrayList[this.manager.topPosition]
+        val situation = situationsBank[position]
         this.binding.tvTitle.text = situation.situation
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
+        println("Bank: ${situationsBank}")
+//        situationsBank.removeFirst()
+//        this.binding.cardStack.adapter?.notifyItemRemoved(0)
+//        if (currentSituation >= situationsBank.size) {
+//            currentSituation = 0
+//        } else
+//            currentSituation++
+//        this.arrayList.add(situationsBank[currentSituation])
+//        this.binding.cardStack.adapter?.notifyItemRangeInserted(0, 1)
     }
 }
