@@ -11,7 +11,7 @@ class MenuItem(val name: String, var situations: ArrayList<GameSituation> = Arra
                     arrayListOf(
                         GameSituation(
                             "Estás en el colegio y un hombre te queda viendo fijamente. ¿Qué haces?",
-                            "Preguntarle qué está haciendo",
+                            "Acercarse",
                             "Ir a hablarle a un profesor/a",
                             CorrectSide.RIGHT
                         ),

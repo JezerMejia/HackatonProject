@@ -148,7 +148,7 @@ class GameFragment : Fragment(), CardStackListener {
     }
 
     override fun onCardSwiped(direction: Direction?) {
-        if (this.manager.topPosition >= this.situationList.size) return
+        if (this.manager.topPosition > this.situationList.size) return
 
         val situation = this.situationList[this.manager.topPosition - 1]
 
@@ -171,7 +171,6 @@ class GameFragment : Fragment(), CardStackListener {
         }
         animator2.start()
 
-//        this.binding.containerGame.setBackgroundColor(resources.getColor(R.color.black))
         Toast.makeText(this.context, "Incorrecto. Esa acción está mal.", Toast.LENGTH_SHORT).show()
     }
 
