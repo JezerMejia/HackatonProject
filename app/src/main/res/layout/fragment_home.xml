@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_menu_2"
+    android:background="@drawable/background_menu"
     tools:context=".ui.home.HomeFragment">
 
     <ImageView
@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:src="@drawable/logotipo"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="0dp"
         android:fontFamily="@font/luckiest_guy"
         android:text="¡Para ganar elige sabiamente!"
         android:textAlignment="center"
@@ -33,11 +34,11 @@
         android:id="@+id/comoJugar_btn"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:text="Cómo jugar"
+        android:text="Tutorial"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/team"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginHorizontal="30dp"
         android:textSize="30sp"
         android:fontFamily="@font/luckiest_guy"
@@ -53,7 +54,7 @@
         android:text="Desarrollado por:"
         android:textAlignment="center"
         android:textColor="@color/gray_800"
-        android:textSize="20sp"
+        android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@id/estalactica"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -62,12 +63,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginBottom="80dp"
         android:fontFamily="@font/fira_mono_bold"
         android:text="Equipo Estalagmita"
         android:textAlignment="center"
-        android:textColor="@color/gray_800"
-        android:textSize="20sp"
+        android:textColor="@color/primary_dark"
+        android:textSize="23sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
