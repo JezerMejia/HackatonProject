@@ -4,17 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_menu_2"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
+    <ImageView
+        android:id="@+id/logotipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/luckiest_guy"
-        android:text="Liberlú!"
-        android:textSize="46sp"
-        android:textStyle="bold"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:src="@drawable/logotipo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Elige sabiamente para ganar! Toma las decisiones acertadas para avanzar en cada una de las historias."
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/luckiest_guy"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logotipo" />
+
+    <Button
+        android:id="@+id/comoJugar_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Como se juega?"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descripcion"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="30dp"
+        android:textSize="30sp"
+        android:fontFamily="@font/luckiest_guy"
+        android:backgroundTint="@color/primary"
+        />
+
+    <TextView
+        android:id="@+id/team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Desarrollado por:"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/luckiest_guy"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/estalactica"
+        />
+
+    <TextView
+        android:id="@+id/estalactica"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Equipo Estalactita"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/fira_mono_bold"
+        android:layout_marginHorizontal="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
